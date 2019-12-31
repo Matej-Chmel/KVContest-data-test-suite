@@ -15,9 +15,11 @@ To compare files:
 
 On Windows:
 Drop two files onto file_comparator/main.py
-If that doesn't work, enter full path of main.py in quotes into file_comparator/file_comparator.bat instead of "main.py"
-Type name of mode - 'output' - for saving differences to file.
-Or 'print' for only console.
 
-On linux:
-Simply drop two files onto main.py
+If that doesn't work, enter full path of main.py in quotes into file_comparator/file_comparator.bat instead of "main.py"
+
+Type name of mode - 'output' - for saving differences to file.
+Or 'print' for only console output.
+
+On Linux:
+Simply drop two files onto main.py and follow the instructions on screen.
