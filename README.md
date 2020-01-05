@@ -15,7 +15,7 @@ My attempt on simple command-key-value dataset generator.
 
 *On Windows:*
 
-- Drop two files onto file_comparator/main.py
+- Drop two files onto file_comparator/file_comparator.bat
 - If that doesn't work, enter full path of main.py in quotes into file_comparator/file_comparator.bat instead of "main.py"
 - Type name of mode - 'output' - for saving differences to file.
 - Or 'print' for only console output.
