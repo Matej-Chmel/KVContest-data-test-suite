@@ -1,5 +1,0 @@
-A key value
-S key value
-L key
-R key
-H key0 key1 key2

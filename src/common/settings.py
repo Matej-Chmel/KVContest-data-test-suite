@@ -8,6 +8,7 @@ class SETTINGS:
     Calling setOptions() before using any of the common modules is recommended.
     """
     BASE_DIR = '__DIRECTORY_NOT_SET__'
+    DECIMAL_PLACES = 2
 
     @staticmethod
     def setOptions(**kwargs):      
