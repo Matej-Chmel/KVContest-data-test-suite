@@ -17,7 +17,7 @@ def main():
         with open(dataset_path) as dataset:
             order = 1
             for row in dataset:
-                line = Line(order, row.split(maxsplit=-1 if row[0] == 'H' else 2))
+                line = Line(order, row.rstrip('\n').split(maxsplit=-1 if row[0] == 'H' else 2))
                 for stat in activator.active_stats[line.cmd]:
                     stat(line)
                 execute_line_no_loads(line)
@@ -28,6 +28,8 @@ def main():
         return
     for writer in activator.console_output:
         print(writer())
+    for graph in activator.graph_output:
+        graph()
 
 if __name__ == "__main__":
     parser = ArgumentParser()
