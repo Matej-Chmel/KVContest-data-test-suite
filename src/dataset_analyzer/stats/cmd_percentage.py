@@ -12,6 +12,7 @@ CmdKeyCases = recordclass('CmdFound', 'key_existed, key_null')
 
 class CommandPercentage:
     def __init__(self):
+        # {cmd: CmdKeyCases}
         self.cases = defaultdict(lambda: CmdKeyCases(0, 0))
         self.hashloads = 0
         self.wtab = None
@@ -23,19 +24,17 @@ class CommandPercentage:
     def comp_H(self, line):
         self.hashloads += 1
     def _create_wtab(self):
+        if self.wtab is not None:
+            return
         total = self.hashloads
         for key in self.cases:
             total += self.cases[key].key_existed + self.cases[key].key_null
-        table = PrettyTable([
+        # sortby ocs, max first, center first column, rest align to right
+        self.wtab = Ptw(PrettyTable([
             'Command', 'Total occurrences', '% from total', 
             'Key existed', '% from ocs',
             "Key didn't exist", '% from ocs '
-        ])
-        table.align = 'r'
-        self.wtab = Ptw(table, (1, True), ['c']) # sortby column, center first column
-        self.wtab.update_format_factories({
-            k:percentage_str for k in ['% from total', '% from ocs', '% from ocs ']
-        })
+        ]), (1, True), ['c', 'R'], ([2, 4, 6], percentage_str))
         for key in self.cases:
             key_existed = self.cases[key].key_existed
             key_null = self.cases[key].key_null
@@ -48,12 +47,12 @@ class CommandPercentage:
         self.wtab.write_raw(['H', self.hashloads, percentage(self.hashloads, total)])
         self.wtab.add_raw_to_table()
     def output(self):
-        if self.wtab is None: self._create_wtab()
+        self._create_wtab()
         return self.wtab.table
     def graph(self):
-        if self.wtab is None: self._create_wtab()
-        
+        self._create_wtab()
         # bar chart
+        self.wtab.sort_raw()
         N = len(self.wtab.raw_data)
         key_existed = [row[3] if not row[3] == '' else 0 for row in self.wtab.raw_data]
         key_null = [row[5] if not row[5] == '' else 0 for row in self.wtab.raw_data]
@@ -68,6 +67,8 @@ class CommandPercentage:
         plt.ylabel('Number of cases')
         plt.title('Command Percentage')
         plt.xticks(ind, [row[0] for row in self.wtab.raw_data])
-        plt.legend((p1[0], p2[0], p3[0]), ('Key existed', "Key didn't exist", 'Hashload occurences'))
-
+        plt.legend((p1[0], p2[0], p3[0]), (
+            'Key existed', "Key didn't exist", 'Hashload occurences'
+        ))
+        
         plt.show()

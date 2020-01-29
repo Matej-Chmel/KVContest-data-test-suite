@@ -2,11 +2,13 @@ from argparse import ArgumentParser
 import os
 from sys import argv
 import sys
+from tqdm import tqdm_gui
 from src.common import Line, execute_line_no_loads
 import src.dataset_analyzer.stats as stats
 
 desired_stats = [
-    stats.CommandPercentage()
+    stats.CommandPercentage(),
+    stats.HashloadInfo()
 ]
 dataset_path = None
 
@@ -14,6 +16,12 @@ dataset_path = None
 def main():
     activator = stats.Activator(desired_stats)
     try:
+        progress_bar = tqdm_gui(
+            desc='Computing statistics', 
+            total=os.path.getsize(dataset_path),
+            position=0,
+            leave=False
+        )
         with open(dataset_path) as dataset:
             order = 1
             for row in dataset:
@@ -22,6 +30,8 @@ def main():
                     stat(line)
                 execute_line_no_loads(line)
                 order += 1
+                progress_bar.update(len(row))
+        progress_bar.close()
     except OSError:
         print('Could not open dataset.')
         print(dataset_path)

@@ -1,27 +1,42 @@
 class PrettyTableWrapper:
-    def __init__(self, table, sortby=None, aligns=None):
+    def __init__(self, table, sortby=None, aligns=None, common_formatter=None):
         """Create PrettyTableWrapper.
         Args:
             table (PrettyTable).
             sortby (id: str or int | tuple(id, reversesort=bool)) opt: Sorts table by field name.
             aligns (list) opt: Align setting applied positionally on columns.
+                If last align is uppercase, then remaining columns will be aligned that way.
+            common_formatter (tuple(idxs_sequence, function)) opt: 
+                Add common formatter function to selected columns.
         """
         self.table = table
         self.n_columns = len(table.field_names)
         self.raw_data = []
         self.print_ptr = 0
+        self.sortby = None
+        self.reversesort = False
         self.format_factories = {}
 
         if sortby is not None:
             if isinstance(sortby, tuple):
                 table.sortby = sortby[0] if isinstance(sortby[0], str) else table.field_names[sortby[0]]
-                table.reversesort = sortby[1]
+                self.reversesort = table.reversesort = sortby[1]
             else:
                 table.sortby = sortby if isinstance(sortby, str) else table.field_names[sortby]
+            self.sortby = table.field_names.index(table.sortby)
 
         if aligns:
+            if aligns[-1].isupper():
+                table.align = aligns[-1].lower()
+                del aligns[-1]
             for align, field in zip(aligns, table.field_names):
                 table.align[field] = align
+
+        if common_formatter:
+            self.update_format_factories({
+                idx:common_formatter[1]
+                for idx in common_formatter[0]
+            })
 
     def coalesce(self, row_data):
         """Coalesce missing fields with empty string.
@@ -56,10 +71,8 @@ class PrettyTableWrapper:
                 not cell == '' else cell
                 for idx, cell in enumerate(row)
             ])
-            # for idx in self.format_factories:
-            #     # format non-empty cells
-            #     if row[idx]:
-            #         row[idx] = self.format_factories[idx](row[idx])
-            # self.table.add_row(row)
         self.print_ptr = len(self.raw_data)
+
+    def sort_raw(self):
+        self.raw_data.sort(key=lambda item: item[self.sortby], reverse=self.reversesort)
         
