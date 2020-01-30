@@ -1,29 +1,30 @@
+from prettytable import PrettyTable
+
 class PrettyTableWrapper:
-    def __init__(self, table, sortby=None, aligns=None, common_formatter=None):
+    def __init__(self, field_names=[], sortby=None, reverse_sort=False, aligns=None, common_formatter=None):
         """Create PrettyTableWrapper.
         Args:
-            table (PrettyTable).
-            sortby (id: str or int | tuple(id, reversesort=bool)) opt: Sorts table by field name.
+            field_names (list).
+            sortby (str or int) opt: Sorts table by column.
+            reverse_sort (bool) opt.
             aligns (list) opt: Align setting applied positionally on columns.
                 If last align is uppercase, then remaining columns will be aligned that way.
             common_formatter (tuple(idxs_sequence, function)) opt: 
                 Add common formatter function to selected columns.
         """
+        table = PrettyTable(field_names)
         self.table = table
-        self.n_columns = len(table.field_names)
+        self.n_columns = len(field_names)
         self.raw_data = []
         self.print_ptr = 0
         self.sortby = None
-        self.reversesort = False
+        self.reverse_sort = reverse_sort
         self.format_factories = {}
 
         if sortby is not None:
-            if isinstance(sortby, tuple):
-                table.sortby = sortby[0] if isinstance(sortby[0], str) else table.field_names[sortby[0]]
-                self.reversesort = table.reversesort = sortby[1]
-            else:
-                table.sortby = sortby if isinstance(sortby, str) else table.field_names[sortby]
+            table.sortby = sortby if isinstance(sortby, str) else table.field_names[sortby]
             self.sortby = table.field_names.index(table.sortby)
+            table.reversesort = self.reverse_sort
 
         if aligns:
             if aligns[-1].isupper():
@@ -74,5 +75,5 @@ class PrettyTableWrapper:
         self.print_ptr = len(self.raw_data)
 
     def sort_raw(self):
-        self.raw_data.sort(key=lambda item: item[self.sortby], reverse=self.reversesort)
+        self.raw_data.sort(key=lambda item: item[self.sortby], reverse=self.reverse_sort)
         

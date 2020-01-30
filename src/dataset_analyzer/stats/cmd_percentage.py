@@ -1,9 +1,6 @@
 from collections import defaultdict
-import matplotlib.pyplot as plt
-import numpy as np
-from prettytable import PrettyTable
 from recordclass import recordclass
-from src.common import storage, Ptw
+from src.common import storage, Ptw, Bar, extract_sublist
 from src.common.math import percentage, percentage_str
 
 # stores number of cases 
@@ -30,11 +27,12 @@ class CommandPercentage:
         for key in self.cases:
             total += self.cases[key].key_existed + self.cases[key].key_null
         # sortby ocs, max first, center first column, rest align to right
-        self.wtab = Ptw(PrettyTable([
+        self.wtab = Ptw(field_names=[
             'Command', 'Total occurrences', '% from total', 
             'Key existed', '% from ocs',
             "Key didn't exist", '% from ocs '
-        ]), (1, True), ['c', 'R'], ([2, 4, 6], percentage_str))
+        ], sortby=1, reverse_sort=True, aligns=['c', 'R'], 
+                        common_formatter=([2, 4, 6], percentage_str))
         for key in self.cases:
             key_existed = self.cases[key].key_existed
             key_null = self.cases[key].key_null
@@ -51,24 +49,21 @@ class CommandPercentage:
         return self.wtab.table
     def graph(self):
         self._create_wtab()
-        # bar chart
         self.wtab.sort_raw()
-        N = len(self.wtab.raw_data)
-        key_existed = [row[3] if not row[3] == '' else 0 for row in self.wtab.raw_data]
-        key_null = [row[5] if not row[5] == '' else 0 for row in self.wtab.raw_data]
-        hashload_ocs = [row[1] if row[3] == '' else 0 for row in self.wtab.raw_data]
-        ind = np.arange(N)
-        width = 0.35
-
-        p1 = plt.bar(ind, key_existed, width)
-        p2 = plt.bar(ind, key_null, width, bottom=key_existed)
-        p3 = plt.bar(ind, hashload_ocs, width)
-        
-        plt.ylabel('Number of cases')
-        plt.title('Command Percentage')
-        plt.xticks(ind, [row[0] for row in self.wtab.raw_data])
-        plt.legend((p1[0], p2[0], p3[0]), (
-            'Key existed', "Key didn't exist", 'Hashload occurences'
-        ))
-        
-        plt.show()
+        Bar.chart(
+            Bar(
+                upper=extract_sublist(self.wtab.raw_data, 5, 0),
+                upper_label="Key didn't exist",
+                bottom=extract_sublist(self.wtab.raw_data, 3, 0),
+                bottom_label='Key existed',
+                same_loc=Bar(
+                    upper=[row[1] if row[0] == 'H' else 0 for row in self.wtab.raw_data],
+                    upper_label='Hashload occurences',
+                )
+            ),
+            title='Command Percentage',
+            xlabel='Commands',
+            ylabel='Number of cases',
+            group_labels=[row[0] for row in self.wtab.raw_data],
+            width=0.35
+        )

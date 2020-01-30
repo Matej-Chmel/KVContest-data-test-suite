@@ -14,7 +14,8 @@ def execute_line_no_loads(line):
     if line.cmd == 'A':
         storage[line.key] += line.val
     elif line.cmd == 'R':
-        del storage[line.key]
+        if line.key in storage:
+            del storage[line.key]
     elif line.cmd == 'S':
         storage[line.key] = line.val
 
