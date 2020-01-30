@@ -6,9 +6,11 @@ from tqdm import tqdm_gui
 from src.common import Line, execute_line_no_loads
 import src.dataset_analyzer.stats as stats
 
+cmdPercentage = stats.CommandPercentage()
 desired_stats = [
-    stats.CommandPercentage(),
-    stats.HashloadInfo()
+    cmdPercentage,
+    stats.CommandTimeline(cmdPercentage, 500),
+    stats.HashloadInfo(),
 ]
 dataset_path = None
 
@@ -24,6 +26,7 @@ def main():
         )
         with open(dataset_path) as dataset:
             order = 1
+            line = None
             for row in dataset:
                 line = Line(order, row.rstrip('\n').split(maxsplit=-1 if row[0] == 'H' else 2))
                 for stat in activator.active_stats[line.cmd]:
@@ -31,6 +34,8 @@ def main():
                 execute_line_no_loads(line)
                 order += 1
                 progress_bar.update(len(row))
+            for end_func in activator.end_dataset:
+                end_func(line)
         progress_bar.close()
     except OSError:
         print('Could not open dataset.')

@@ -44,12 +44,12 @@ class CommandPercentage:
             ])
         self.wtab.write_raw(['H', self.hashloads, percentage(self.hashloads, total)])
         self.wtab.add_raw_to_table()
+        self.wtab.sort_raw()
     def output(self):
         self._create_wtab()
         return self.wtab.table
-    def graph(self):
+    def graph_bar_chart(self):
         self._create_wtab()
-        self.wtab.sort_raw()
         Bar.chart(
             Bar(
                 upper=extract_sublist(self.wtab.raw_data, 5, 0),

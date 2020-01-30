@@ -10,9 +10,12 @@ class Activator:
         # [functions returning printable object]
         # names: output[_{any}]
         self.console_output = []
-        # [functions returning matplot graph]
+        # [functions showing matplot graph]
         # names: graph[_{any}]
         self.graph_output = []
+        # [functions to be called after whole dataset was read]
+        # names: end[_{any}]({one arg - last line})
+        self.end_dataset = []
         # TODO: get dataset stat data for generator
 
         if desired_stats:
@@ -37,7 +40,7 @@ class Activator:
                 if callable(bound):
                     if attr.startswith('comp_') and len(signature(bound).parameters) == 1:
                         splits = attr.split('_', maxsplit=2)
-                        if len(splits) == 1 or splits[1] == 'a':
+                        if len(splits) == 1 or splits[1] == 'all':
                             # all cmds
                             self._activate_one(bound, COMMANDS)
                         else:
@@ -46,3 +49,5 @@ class Activator:
                         self.console_output.append(bound)
                     elif attr.startswith('graph'):
                         self.graph_output.append(bound)
+                    elif attr.startswith('end') and len(signature(bound).parameters) == 1:
+                        self.end_dataset.append(bound)

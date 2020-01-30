@@ -95,7 +95,7 @@ class Bar:
                 yield Bar(upper, label)
         return list(_bar_generator())
 
-def demo_1():
+def demo_bar1():
     Bar.chart(
         [
             ([1, 2, 3], '1 A', [4, 5, 6], '1 B'),
@@ -113,7 +113,7 @@ def demo_1():
         group_labels=['ABC', 'DEF', 'GHI'],
         width=0.33
     )
-def demo_2():
+def demo_bar2():
     Bar.chart(
         [
             *Bar.unpack(
@@ -125,7 +125,7 @@ def demo_2():
             )
         ]
     )
-def demo_3():
+def demo_bar3():
     Bar.chart(
         Bar.unpack(
             [
@@ -138,7 +138,8 @@ def demo_single_bar():
     Bar.chart(Bar([1, 2, 3], 'One'))
 
 if __name__ == "__main__":
-    demo_1()
-    demo_2()
-    demo_3()
-    demo_single_bar()
+    # demo_bar1()
+    # demo_bar2()
+    # demo_bar3()
+    # demo_single_bar()
+    pass
