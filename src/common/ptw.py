@@ -7,7 +7,7 @@ class PrettyTableWrapper:
             field_names (list).
             sortby (str or int) opt: Sorts table by column.
             reverse_sort (bool) opt.
-            aligns (list) opt: Align setting applied positionally on columns.
+            aligns (iterable) opt: Align setting applied positionally on columns.
                 If last align is uppercase, then remaining columns will be aligned that way.
             common_formatter (tuple(idxs_sequence, function)) opt: 
                 Add common formatter function to selected columns.
@@ -26,11 +26,10 @@ class PrettyTableWrapper:
             self.sortby = table.field_names.index(table.sortby)
             table.reversesort = self.reverse_sort
 
-        if aligns:
+        if aligns and len(aligns) != 0: 
             if aligns[-1].isupper():
                 table.align = aligns[-1].lower()
-                del aligns[-1]
-            for align, field in zip(aligns, table.field_names):
+            for align, field in zip(aligns[:-1], table.field_names):
                 table.align[field] = align
 
         if common_formatter:

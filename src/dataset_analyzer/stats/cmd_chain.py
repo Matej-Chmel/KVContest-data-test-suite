@@ -52,7 +52,7 @@ class CommandChain:
                 'Not repeated', '% from total ',
                 'Chains 1, 2, 3 and longest'
             ],
-            sortby=0, aligns=list('crrrrC'), common_formatter=((2, 4), percentage_str)
+            sortby=0, aligns='crrrrC', common_formatter=((2, 4), percentage_str)
         )
         for cmd in self.computed_samples:
             for idx, sample in enumerate(self.computed_samples[cmd]):

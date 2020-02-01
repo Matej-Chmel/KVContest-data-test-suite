@@ -95,7 +95,21 @@ class Bar:
                 yield Bar(upper, label)
         return list(_bar_generator())
 
-def demo_bar1():
+def pie_chart(data, labels, explode=None, title='', shadow=True, start_angle=90):
+    fig, ax = plt.subplots()
+    ax.pie(
+        data, labels=labels, explode=explode,
+        autopct='%1.1f%%', shadow=shadow, startangle=start_angle
+    )
+    ax.axis('equal')
+    ax.set_title(title)
+
+    fig.tight_layout()
+    plt.show()
+
+### demos ###
+
+def _bar1():
     Bar.chart(
         [
             ([1, 2, 3], '1 A', [4, 5, 6], '1 B'),
@@ -113,7 +127,7 @@ def demo_bar1():
         group_labels=['ABC', 'DEF', 'GHI'],
         width=0.33
     )
-def demo_bar2():
+def _bar2():
     Bar.chart(
         [
             *Bar.unpack(
@@ -125,7 +139,7 @@ def demo_bar2():
             )
         ]
     )
-def demo_bar3():
+def _bar3():
     Bar.chart(
         Bar.unpack(
             [
@@ -134,12 +148,19 @@ def demo_bar3():
             ], from_idx=1, labels=0
         )
     )
-def demo_single_bar():
+def _single_bar():
     Bar.chart(Bar([1, 2, 3], 'One'))
 
+def _pie1():
+    pie_chart(
+        [10, 20, 30, 40],
+        'ABCD',
+        title='Pie chart ABCD 001'
+    )
+
 if __name__ == "__main__":
-    # demo_bar1()
-    # demo_bar2()
-    # demo_bar3()
-    # demo_single_bar()
-    pass
+    # _bar1()
+    # _bar2()
+    # _bar3()
+    # _single_bar()
+    _pie1()

@@ -10,7 +10,8 @@ desired_stats = [
     #stats.CommandPercentage(),
     #stats.CommandTimeline(1),
     #stats.HashloadInfo(),
-    stats.CommandChain()
+    #stats.CommandChain(),
+    stats.KeyLengths()
 ]
 dataset_path = None
 
