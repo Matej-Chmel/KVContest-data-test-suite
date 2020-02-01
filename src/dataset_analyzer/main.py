@@ -6,11 +6,11 @@ from tqdm import tqdm_gui
 from src.common import Line, execute_line_no_loads
 import src.dataset_analyzer.stats as stats
 
-cmdPercentage = stats.CommandPercentage()
 desired_stats = [
-    cmdPercentage,
-    stats.CommandTimeline(cmdPercentage, 500),
-    stats.HashloadInfo(),
+    #stats.CommandPercentage(),
+    #stats.CommandTimeline(1),
+    #stats.HashloadInfo(),
+    stats.CommandChain()
 ]
 dataset_path = None
 
