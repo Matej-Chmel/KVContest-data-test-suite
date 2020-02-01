@@ -8,6 +8,8 @@ from src.common.math import percentage, percentage_str
 CmdKeyCases = recordclass('CmdFound', 'key_existed, key_null')
 
 class CommandPercentage:
+    """Computes number of command occurrences 
+    and their percentage from total lines."""
     def __init__(self):
         # {cmd: CmdKeyCases}
         self.cases = defaultdict(lambda: CmdKeyCases(0, 0))
@@ -31,7 +33,7 @@ class CommandPercentage:
             'Command', 'Total occurrences', '% from total', 
             'Key existed', '% from ocs',
             "Key didn't exist", '% from ocs '
-        ], sortby=1, reverse_sort=True, aligns=['c', 'R'], 
+        ], sortby=1, reverse_sort=True, aligns='cR', 
                         common_formatter=([2, 4, 6], percentage_str))
         for key in self.cases:
             key_existed = self.cases[key].key_existed

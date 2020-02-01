@@ -12,16 +12,15 @@ def extract_sublist(source, idx, default=0):
     return [sublist[idx] if sublist[idx] != '' else default for sublist in source]
 
 class Bar:
+    """Args:
+        upper (list): Main data for bars.
+        upper_label (str) opt: Bars label.
+        bottom (list) opt: Bottom part data.
+        same_loc (Bar) opt: Bars plotted on same location.
+    """
     def __init__(
             self, upper=None, upper_label='', bottom=None, bottom_label='', same_loc=None
-    ):
-        """
-        Args:
-            upper (list): Main data for bars.
-            label (str) opt: Bars label.
-            bottom (list) opt: Bottom part data.
-            same_loc (Bar) opt: Bars plotted on same location.
-        """                     
+    ):                  
         self.upper = upper
         self.label = upper_label
         self.bottom = bottom

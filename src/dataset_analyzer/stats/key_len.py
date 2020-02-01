@@ -20,6 +20,8 @@ def _graph_pie_chart(ocs_dict, title=''):
     pie_chart(ocs_dict.values(), ocs_dict.keys(), title=title)
 
 class KeyLengths:
+    """Computes number of occurrences of length of a key 
+    in classic commands and also in hashload."""    
     def __init__(self):
         self.wtab_ALRS = None
         self.wtab_H = None

@@ -9,6 +9,7 @@ from src.common import COMMANDS
 CmdSample = recordclass('CmdSample', 'total_ocs, samples')
 
 class CommandTimeline:
+    """Computes changes in number of occurrences of commands over time."""
     def __init__(self, lines_sample=500):
         """Args:
             lines_sample (int) opt: Splits graph into sections

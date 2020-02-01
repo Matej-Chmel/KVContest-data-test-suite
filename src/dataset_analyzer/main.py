@@ -11,7 +11,8 @@ desired_stats = [
     #stats.CommandTimeline(1),
     #stats.HashloadInfo(),
     #stats.CommandChain(),
-    stats.KeyLengths()
+    #stats.KeyLengths(),
+    stats.KeyDistances(),
 ]
 dataset_path = None
 
@@ -53,12 +54,11 @@ if __name__ == "__main__":
     parser.add_argument("dataset_path", nargs='?', default=None)
     args = parser.parse_args()
     if args.debug:
-        dataset_path = os.getcwd() + '\\src\\dataset_analyzer\\tests\\dataset_1.test'
+        print('\n\n!!!\nRunning debug configuration.\n!!!\n\n')
+    if args.dataset_path:
+        dataset_path = args.dataset_path
     else:
-        if args.dataset_path:
-            dataset_path = args.dataset_path
-        else:
-            print('Only one dataset can be analyzed at a time.')
-            print('Bad args: {}'.format(str(argv)))
-            sys.exit('__NODATA__')
+        print('Only one dataset can be analyzed at a time.')
+        print('Bad args: {}'.format(str(argv)))
+        sys.exit('__NODATA__')
     main()

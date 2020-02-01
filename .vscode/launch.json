@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    {"name":"Python: Current File (Integrated Terminal)","type":"python","request":"launch","program":"${file}","console":"integratedTerminal"},
         {
             "name": "Python: Current File",
             "type": "python",
@@ -12,12 +13,23 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "dataset_analyzer",
+            "name": "dataset_analyzer_1",
             "type": "python",
             "request": "launch",
             "module": "src.dataset_analyzer.main",
             "args": [
-                "--debug"
+                "--debug",
+                "${workspaceRoot}/src/dataset_analyzer/tests/dataset_1.test"
+            ]
+        },
+        {
+            "name": "dataset_analyzer_2",
+            "type": "python",
+            "request": "launch",
+            "module": "src.dataset_analyzer.main",
+            "args": [
+                "--debug",
+                "${workspaceRoot}/src/dataset_analyzer/tests/dataset_2.test"
             ]
         }
     ]

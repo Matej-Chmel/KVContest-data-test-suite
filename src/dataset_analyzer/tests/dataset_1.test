@@ -3,6 +3,7 @@ S key02 value2
 L key03
 H key01 key02 key04
 R key02
+S key02 set after del
 L key01
 L key01
 H key01 key02 key03

@@ -10,6 +10,10 @@ from src.common import storage, Ptw, Bar
 HCases = recordclass('HCases', 'end, key_existed, key_null, min_len, max_len')
 
 class HashloadInfo:
+    """Computes statistics about hashload command only.
+    Gets the number of keys in hashload,
+    if individual keys existed in storage at the time of hashload or not,
+    and also min and max length of a key in hashload."""
     def __init__(self):
         # {key index in line: HCases}
         self.cases = defaultdict(lambda: HCases(0, 0, 0, 99, 0))
@@ -32,7 +36,7 @@ class HashloadInfo:
             return
         self.wtab = Ptw(field_names=[
             'Key index', 'Existed', "Didn't exist", 'Last key', 'Min len', 'Max len'
-        ], sortby=0, aligns=['c', 'R'])
+        ], sortby=0, aligns='cR')
         for idx in self.cases:
             h = self.cases[idx]
             self.wtab.write_raw([
