@@ -17,14 +17,12 @@ class PrettyTableWrapper:
         self.n_columns = len(field_names)
         self.raw_data = []
         self.print_ptr = 0
-        self.sortby = None
+        self.sortby = sortby
         self.reverse_sort = reverse_sort
         self.format_factories = {}
 
         if sortby is not None:
-            table.sortby = sortby if isinstance(sortby, str) else table.field_names[sortby]
-            self.sortby = table.field_names.index(table.sortby)
-            table.reversesort = self.reverse_sort
+            self._apply_sort(sortby, reverse_sort)
 
         if aligns and len(aligns) != 0: 
             if aligns[-1].isupper():
@@ -73,6 +71,16 @@ class PrettyTableWrapper:
             ])
         self.print_ptr = len(self.raw_data)
 
+    def _apply_sort(self, sortby, reverse_sort):
+        self.table.sortby = sortby if isinstance(sortby, str) else self.table.field_names[sortby]
+        self.sortby = self.table.field_names.index(self.table.sortby)
+        self.reverse_sort = reverse_sort
+        self.table.reversesort = self.reverse_sort
+
     def sort_raw(self):
         self.raw_data.sort(key=lambda item: item[self.sortby], reverse=self.reverse_sort)
+
+    def re_sort(self, sortby, reverse_sort=False):
+        self._apply_sort(sortby, reverse_sort)
+        self.sort_raw()
         

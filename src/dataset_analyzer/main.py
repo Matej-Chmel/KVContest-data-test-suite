@@ -12,7 +12,8 @@ desired_stats = [
     #stats.HashloadInfo(),
     #stats.CommandChain(),
     #stats.KeyLengths(),
-    stats.KeyDistances(),
+    #stats.KeyDistances(),
+    stats.ValueLengths(),
 ]
 dataset_path = None
 

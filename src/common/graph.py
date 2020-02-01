@@ -95,6 +95,14 @@ class Bar:
         return list(_bar_generator())
 
 def pie_chart(data, labels, explode=None, title='', shadow=True, start_angle=90):
+    """Args:
+        data (list): Values in order of labels.
+        labels (list): Names for fractions.
+        explode (list) opt: Explode fractions out of pie.
+        title (str) opt.
+        shadow (bool) opt: Draw shadow around pie?
+        start_angle (float) opt.
+    """    
     fig, ax = plt.subplots()
     ax.pie(
         data, labels=labels, explode=explode,
