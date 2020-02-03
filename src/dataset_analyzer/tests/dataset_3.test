@@ -1,0 +1,11 @@
+S key01 ABCD
+S key02 ABCD
+S key03 ABCD
+A key01 EFGH
+A key02 EFGH
+A key03 EFGH
+A key01 IJKL
+A key02 IJKL
+A key01 MNOP
+A key04 NNNN
+H key01

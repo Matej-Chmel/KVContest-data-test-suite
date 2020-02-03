@@ -29,7 +29,7 @@ class ValueLengths:
         self._create_wtab()
         table_by_ocs = str(self.wtab.table)
         self.wtab.re_sort(0, False)
-        return '\n'.join([table_by_ocs, str(self.wtab.table)])
+        return '\n\n'.join([table_by_ocs, str(self.wtab.table)])
     def graph_pie_chart(self):
         self._create_wtab()
         self.wtab.re_sort(0, False)

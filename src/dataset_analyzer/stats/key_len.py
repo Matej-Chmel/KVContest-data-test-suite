@@ -45,9 +45,9 @@ class KeyLengths:
     def output(self):
         self._create_all_wtabs()
         return '\n'.join([
-            '\nKey lengths in ALRS\n',
+            '\nKey lengths in ALRS',
             str(self.wtab_ALRS.table),
-            '\nKey lengths in Hashload\n',
+            '\nKey lengths in Hashload',
             str(self.wtab_H.table)
         ])
     def graph_pie_chart(self):

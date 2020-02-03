@@ -1,7 +1,11 @@
 from prettytable import PrettyTable
 
 class PrettyTableWrapper:
-    def __init__(self, field_names=[], sortby=None, reverse_sort=False, aligns=None, common_formatter=None):
+    def __init__(
+            self, field_names=None, 
+            sortby=None, reverse_sort=False, 
+            aligns=None, common_formatter=None
+    ):
         """Create PrettyTableWrapper.
         Args:
             field_names (list).
@@ -39,13 +43,19 @@ class PrettyTableWrapper:
     def coalesce(self, row_data):
         """Coalesce missing fields with empty string.
         Args:
-            row_data (list): Fields data.
+            row_data (list): Fields data for one ROW.
         """
+        # pylint: disable=unused-variable
         for i in range(self.n_columns - len(row_data)):
             row_data.append('')
         return row_data
 
     def add_coalesce(self, row_data):
+        """Adds ROW_data straight to PrettyTable.
+        Great if you don't want to mess with raw data.
+        Args:
+            row_data (list): Fields data for one ROW.
+        """   
         self.table.add_row(self.coalesce(row_data))
 
     def update_format_factories(self, factories):
@@ -59,9 +69,18 @@ class PrettyTableWrapper:
         self.format_factories.update(factories)
 
     def write_raw(self, row_data):
+        """Appends ROW data to raw_data list. This is saved in wrapper
+        and is not added to the PrettyTable until self.add_raw_to_table() is called.
+        Args:
+            row_data (list): Fields data for one ROW.
+        """        
         self.raw_data.append(self.coalesce(row_data))
 
     def add_raw_to_table(self):
+        """Adds all yet not printed data from raw_data to PrettyTable.
+        Raw_data stays in wrapper and is accessible as list.
+        Every call to this method adds only data that hasn't been added yet with this method.
+        """        
         for row in self.raw_data[self.print_ptr:]:
             self.table.add_row([
                 self.format_factories[idx](cell)
@@ -78,9 +97,17 @@ class PrettyTableWrapper:
         self.table.reversesort = self.reverse_sort
 
     def sort_raw(self):
+        """Sorts raw_data based on self.sortby and self.reverse_sort.
+        Doesn't sort PrettyTable itself.
+        """        
         self.raw_data.sort(key=lambda item: item[self.sortby], reverse=self.reverse_sort)
 
     def re_sort(self, sortby, reverse_sort=False):
+        """Resorts raw_data as well as PrettyTable itself.
+        Args:
+            sortby (int | str): Names of column to sort by or its index in self.table.field_names.
+            reverse_sort (bool) opt: False = sort ascending, True = sort descending.
+        """        
         self._apply_sort(sortby, reverse_sort)
         self.sort_raw()
         

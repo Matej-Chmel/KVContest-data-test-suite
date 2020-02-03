@@ -7,17 +7,17 @@ from src.common import Line, execute_line_no_loads
 import src.dataset_analyzer.stats as stats
 
 desired_stats = [
-    #stats.CommandPercentage(),
-    #stats.CommandTimeline(1),
-    #stats.HashloadInfo(),
-    #stats.CommandChain(),
-    #stats.KeyLengths(),
-    #stats.KeyDistances(),
+    stats.CommandPercentage(),
+    stats.CommandTimeline(500),
+    stats.HashloadInfo(),
+    stats.CommandChain(),
+    stats.KeyLengths(),
+    stats.KeyDistances(),
     stats.ValueLengths(),
+    stats.ValueLengthToAppendRelations(),
 ]
 dataset_path = None
 
-#TODO: get BASE_DIR of shortcut (caller of run.bat)
 def main():
     activator = stats.Activator(desired_stats)
     try:
@@ -45,7 +45,7 @@ def main():
         print(dataset_path)
         return
     for writer in activator.console_output:
-        print(writer())
+        print(f'{writer.__self__.__class__.__name__}\n{writer()}\n')
     for graph in activator.graph_output:
         graph()
 
