@@ -43,6 +43,7 @@ def main():
     except OSError:
         print('Could not open dataset.')
         print(dataset_path)
+        progress_bar.close()
         return
     for writer in activator.console_output:
         print(f'{writer.__self__.__class__.__name__}\n{writer()}\n')

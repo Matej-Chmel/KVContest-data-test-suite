@@ -1,0 +1,14 @@
+S key01 value01
+S key02 value02
+S key03 value03
+L key01
+L key02
+L key03
+A key01 append01
+A key02 append02 02
+A key03 append03
+A key04 new from append 04
+L key01
+L key02
+L key03
+L key04

@@ -7,7 +7,7 @@ from src.dataset_generator import data
 from src.dataset_generator.implementation import add_line, Implementation
 
 generated = []
-start_at = 'src\\dataset_generator\\tests'
+start_at = None
 preview = 100
 
 def main():

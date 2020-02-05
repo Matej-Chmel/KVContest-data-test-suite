@@ -54,7 +54,40 @@
             "module": "src.dataset_generator.main",
             "args": [
                 "--debug",
-                "--start_at=dataset_output"
+                "--start_at=src/dataset_generator/output"
+            ]
+        },
+        {
+            "name": "solution_generator LRS",
+            "type": "python",
+            "request": "launch",
+            "module": "src.solution_generator.main",
+            "args": [
+                "--debug",
+                "--start_at=src/solution_generator/output",
+                "${workspaceRoot}/src/solution_generator/tests/dataset_LRS.test"
+            ]
+        },
+        {
+            "name": "solution_generator A",
+            "type": "python",
+            "request": "launch",
+            "module": "src.solution_generator.main",
+            "args": [
+                "--debug",
+                "--start_at=src/solution_generator/output",
+                "${workspaceRoot}/src/solution_generator/tests/dataset_A.test"
+            ]
+        },
+        {
+            "name": "solution_generator H",
+            "type": "python",
+            "request": "launch",
+            "module": "src.solution_generator.main",
+            "args": [
+                "--debug",
+                "--start_at=src/solution_generator/output",
+                "${workspaceRoot}/src/solution_generator/tests/dataset_H.test"
             ]
         },
     ]

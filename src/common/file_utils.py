@@ -49,7 +49,7 @@ def write_file_from_lines(lines, path) -> bool:
     except EnvironmentError as e:
         print(f'Could not write to file {path}\n{repr(e)}')
         return False
-    print('File was successfully written.')
+    print(f'File was successfully written. Path:\n{path}')
     return True
 
 def file_dialog(lines, prompt='', start_dir='', ext=''):
