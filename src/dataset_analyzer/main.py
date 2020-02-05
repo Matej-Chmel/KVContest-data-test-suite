@@ -8,7 +8,7 @@ import src.dataset_analyzer.stats as stats
 
 desired_stats = [
     stats.CommandPercentage(),
-    stats.CommandTimeline(500),
+    stats.CommandTimeline(300),
     stats.HashloadInfo(),
     stats.CommandChain(),
     stats.KeyLengths(),

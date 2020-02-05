@@ -47,29 +47,32 @@ class Bar:
             group_labels (list) opt: Label each group.
             width (float) opt: Width of a group.
         """
-        if not isinstance(data, list):
-            data = [data]
-        loc = np.arange(
-            len(data[0].upper)
-            if isinstance(data[0], Bar)
-            else len(data[0][0])
-        )
-        bars = len(data)
-        swidth = width/bars
         fig, ax = plt.subplots()
-
-        for idx, item in enumerate(data):
-            if isinstance(item, Bar):
-                item.plot(ax, loc + (idx*swidth - ((bars - 1)/2)*(width/bars)), swidth)
-            else:
-                Bar(*item).plot(ax, loc + (idx*swidth - ((bars - 1)/2)*(width/bars)), swidth)
+        try:
+            if not isinstance(data, list):
+                data = [data]
+            loc = np.arange(
+                len(data[0].upper)
+                if isinstance(data[0], Bar)
+                else len(data[0][0])
+            )
+            bars = len(data)
+            swidth = width/bars
+        except TypeError:
+            print('Empty graph will be shown.')
+        else:
+            for idx, item in enumerate(data):
+                if isinstance(item, Bar):
+                    item.plot(ax, loc + (idx*swidth - ((bars - 1)/2)*(width/bars)), swidth)
+                else:
+                    Bar(*item).plot(ax, loc + (idx*swidth - ((bars - 1)/2)*(width/bars)), swidth)
+            ax.set_xticks(loc)
+            if group_labels:
+                ax.set_xticklabels(group_labels)
 
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.set_title(title)
-        ax.set_xticks(loc)
-        if group_labels:
-            ax.set_xticklabels(group_labels)
         ax.legend()
 
         fig.tight_layout()

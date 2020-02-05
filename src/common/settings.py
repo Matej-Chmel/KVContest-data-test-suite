@@ -1,22 +1,23 @@
 """
 Settings for this repository.
-Calling setOptions() before using any of the common modules is recommended.
 """
+
+import os
 
 class SETTINGS:
     """Settings for this repository.
-    Calling setOptions() before using any of the common modules is recommended.
     """
-    BASE_DIR = '__DIRECTORY_NOT_SET__'
+    BASE_DIR = os.getcwd()
     DECIMAL_PLACES = 2
 
     @staticmethod
     def setOptions(**kwargs):      
-        """Sets global variables from attribute dict.
-
-        Args:
+        """Sets settings variables from kwargs dict.
+        Keywords:
             BASE_DIR (str): Base directory of file paths.
-        """        
+            DECIMAL_PLACES (int): Number of decimal places to format float numbers.
+                Note: this settings is used only in some functions.
+        """
         allowed_attrs = SETTINGS.__dict__
         for attr in kwargs:
             if attr in allowed_attrs:
