@@ -90,6 +90,17 @@
                 "${workspaceRoot}/src/solution_generator/tests/dataset_H.test"
             ]
         },
+        // {
+        //     "name": "solution_generator medium 10k",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "module": "src.solution_generator.main",
+        //     "args": [
+        //         "--debug",
+        //         "--start_at=src/solution_generator/output",
+        //         "${workspaceRoot}/src/solution_generator/tests/medium_10k.txt"
+        //     ]
+        // },
         {
             "name": "file_comparator",
             "type": "python",
