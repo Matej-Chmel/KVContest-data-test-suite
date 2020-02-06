@@ -17,6 +17,8 @@ class ValueLengthToAppendRelations:
         self.values[line.val] += 1
         self.append_lengths.append(len(line.val))
     def output(self):
+        if not self.append_lengths:
+            return 'No append commands were found.'
         tlen = Ptw(
             ['Length', 'Appended to'],
             sortby=0, aligns='R'
