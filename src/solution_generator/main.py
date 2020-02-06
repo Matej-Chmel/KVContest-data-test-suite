@@ -3,13 +3,12 @@ import os
 from sys import argv
 import sys
 from tqdm import tqdm_gui
-from src.common import Line, execute_line_return_result
+from src.common import execute_line_return_result, Line, PREVIEW, SETTINGS
 from src.common.file_utils import file_dialog
 
 dataset_path = None
 start_at = None
 generated = []
-preview = 100
 
 def main():
     try:
@@ -34,13 +33,13 @@ def main():
         return
     print(
         '\nPreview:\n', 
-        *list(generated[:preview]), 
-        '...' if len(generated) > preview else '', 
+        *list(generated[:PREVIEW]), 
+        '...' if len(generated) > PREVIEW else '', 
         sep='\n'
     )
     file_dialog(
         generated, 
-        prompt='Do you want to save the solution output?', 
+        prompt='Do you want to save the solution?', 
         start_dir=start_at, 
         ext='txt'
     )

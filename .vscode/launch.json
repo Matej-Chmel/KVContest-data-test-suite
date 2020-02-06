@@ -90,5 +90,17 @@
                 "${workspaceRoot}/src/solution_generator/tests/dataset_H.test"
             ]
         },
+        {
+            "name": "file_comparator",
+            "type": "python",
+            "request": "launch",
+            "module": "src.file_comparator.main",
+            "args": [
+                "--debug",
+                "--start_at=src/file_comparator/output",
+                "${workspaceRoot}/src/file_comparator/tests/file_A1.test",
+                "${workspaceRoot}/src/file_comparator/tests/file_B2_short.test"
+            ]
+        },
     ]
 }

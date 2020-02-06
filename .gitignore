@@ -1,4 +1,6 @@
 __pycache__
+src/file_slicer/*
 .vscode/*
 !.vscode/launch.json
-run_scripts/generated_datasets/*
+run_scripts/*/*
+src/file_comparator/output/*

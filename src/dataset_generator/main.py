@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from tqdm import tqdm_gui
-from src.common import Line, SETTINGS, execute_line_no_loads
+from src.common import execute_line_no_loads, Line, PREVIEW, SETTINGS, 
 from src.common.dialogs import valid_input, valid_choice
 from src.common.file_utils import file_dialog
 from src.dataset_generator import data
@@ -8,7 +8,6 @@ from src.dataset_generator.implementation import add_line, Implementation
 
 generated = []
 start_at = None
-preview = 100
 
 def main():
     print('Welcome to unofficial dataset generator for key-value 2019 contest.')
@@ -33,8 +32,8 @@ def main():
     progress_bar.close()
     print(
         f'\n{total_lines} successfully generated.', '\nPreview:\n', 
-        *list(generated[:preview]), 
-        '...' if total_lines > preview else '', 
+        *list(generated[:PREVIEW]), 
+        '...' if total_lines > PREVIEW else '', 
         sep='\n'
     )
     file_dialog(generated, prompt='Do you want to save dataset?', start_dir=start_at, ext='txt')
