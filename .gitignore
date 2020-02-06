@@ -2,7 +2,8 @@ __pycache__
 .vscode/*
 !.vscode/launch.json
 run_scripts/*/*
-src/file_comparator/output/*
+src/dataset_generator/output
+src/file_comparator/output
 src/file_slicer/*
 src/solution_generator/tests/*
 !src/solution_generator/tests/*.test

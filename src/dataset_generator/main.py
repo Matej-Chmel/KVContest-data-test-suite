@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from tqdm import tqdm_gui
-from src.common import execute_line_no_loads, Line, PREVIEW, SETTINGS, 
+from src.common import execute_line_no_loads, Line, PREVIEW, SETTINGS
 from src.common.dialogs import valid_input, valid_choice
 from src.common.file_utils import file_dialog
 from src.dataset_generator import data
@@ -31,7 +31,7 @@ def main():
             order += 1
     progress_bar.close()
     print(
-        f'\n{total_lines} successfully generated.', '\nPreview:\n', 
+        f'\n{total_lines} lines successfully generated.', '\nPreview:\n', 
         *list(generated[:PREVIEW]), 
         '...' if total_lines > PREVIEW else '', 
         sep='\n'
