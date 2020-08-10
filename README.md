@@ -1,36 +1,78 @@
-How to use:
+> Warning: At the time of writing, pgcontest website appears to have an expired certificate. Follow the links to pgcontest on your own risk or wait for them to fix it.
 
-Choose and run batch files located in folder */run_scripts*. On Linux you might want to use directly corresponding *main.py* files located in */src* subdirectories.
+# What is this?
 
-**Dataset analyzer**
+You might stumble upon this repository if you were browsing solutions to previous competitions on [pgcontest from VSB](https://pgcontest.vsb.cz/contest/) or their GitLab.
 
-- simply drop valid dataset onto the script or batch file
-- wait for it to finish work
-- follow instructions, path to save files is starting at working directory
+This repository features helper programs that analyzed input datasets and helped me to build my solution in the [key-value storage](https://pgcontest.vsb.cz/contest/task/3) task.
 
-**Dataset generator**
+# How do I use it?
+The scripts are written in Python and work on both Windows and Linux. On Windows you can use batch scripts in the [run](/run) directory to run them with ease. On Linux you can start your selected script from a command line:
 
-- there are some optional arguments:
-    - *--base_dir* : sets path to starting directory for saving files, end with '\'
-    - *--start_at*: set subdirectory for saving files
-- execute script
-- follow instructions in console
+```
+python -m src.{subdirectory}.main {arguments}
+```
 
-**Solution generator**
+The [src](/src) folder contains multiple programs. The text below describes them in more detail.
 
-- there are some optional arguments:
-    - *--base_dir* : sets path to starting directory for saving files, end with '\'
-    - *--start_at*: set subdirectory for saving files
-- simply drop valid dataset onto the script or batch file
-- wait for it to finish work
-- follow instructions in console
+## Dataset analyzer
+### Purpose
+- Produces graphs and statistics from the input dataset.
 
-**File comparator**
+### Usage
+- Simply drop valid dataset onto the script or pass its path as a argument from command line.
+- Wait for it to finish work.
+- Follow instructions.
+- If you don't want to perform all the measurements, you can comment lines 10-17 in [main.py](/src/dataset_analyzer/main.py) and choose statistics you actually want to compute.
 
-- there are some optional arguments:
-    - *--base_dir* : sets path to starting directory for saving file differences, end with '\'
-    - *--start_at*: set subdirectory for saving differences
-- drop two files onto the script or batch file
-- wait for it to finish work
-- a preview of found differences will appear
-- follow instructions in console
+## Dataset generator
+### Purpose
+- Produces example datasets of a user-specified length.
+- It was used for testing slow solutions and in combination with [solution generator](/src/solution_generator) it was used to check for correctness of a solution before uploading it to the competition server.
+
+### Usage
+- Optional arguments:
+    - *--base_dir* : path to output folder, end with '\\'
+    - *--start_at*: name of a subdirectory of a output folder
+- Execute the [script](/src/dataset_generator/main.py).
+- Follow instructions.
+- The dataset should now be ready in the output directory you specified in the arguments.
+
+## Solution generator
+### Purpose
+Produces solution files for a given dataset. However implemented algorithm is too slow and wasn't competitively viable. It was used only for testing purposes.
+
+### Usage
+- Optional arguments:
+    - *--base_dir* : path to output folder, end with '\\'
+    - *--start_at*: name of a subdirectory of a output folder
+- Simply drop valid dataset onto the script or pass its path as a argument from command line.
+- Wait for it to finish work.
+- Follow instructions.
+- The dataset should now be ready in the output directory you specified in the arguments.
+
+## File comparator
+### Purpose
+Compares lines of two files and searches for differences. It was used for detecting mistakes in solution files.
+
+### Usage
+- Optional arguments:
+    - *--base_dir* : path to output folder, end with '\\'
+    - *--start_at*: name of a subdirectory of a output folder
+- Drop two files onto the script or pass their paths as arguments from command line.
+- Wait for it to finish work.
+- A preview of found differences will appear.
+- Follow instructions.
+- If you saved the differences file, you can find in the output directory you specified in the arguments.
+
+## File slicer
+### Purpose
+Creates smaller files from large datasets.
+
+### Usage
+- Optional arguments:
+    - *--base_dir* : path to output folder, end with '\\'
+    - *--start_at*: name of a subdirectory of a output folder
+- Drop a file onto the script or pass its path as a argument from command line.
+- Enter number of lines a copy should have.
+- New dataset will be saved to the output directory you specified in the arguments.

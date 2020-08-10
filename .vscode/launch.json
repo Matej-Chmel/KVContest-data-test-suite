@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -90,17 +87,19 @@
                 "${workspaceRoot}/src/solution_generator/tests/dataset_H.test"
             ]
         },
-        // {
-        //     "name": "solution_generator medium 10k",
-        //     "type": "python",
-        //     "request": "launch",
-        //     "module": "src.solution_generator.main",
-        //     "args": [
-        //         "--debug",
-        //         "--start_at=src/solution_generator/output",
-        //         "${workspaceRoot}/src/solution_generator/tests/medium_10k.txt"
-        //     ]
-        // },
+        /*
+        {
+            "name": "solution_generator medium 10k",
+            "type": "python",
+            "request": "launch",
+            "module": "src.solution_generator.main",
+            "args": [
+                "--debug",
+                "--start_at=src/solution_generator/output",
+                "${workspaceRoot}/src/solution_generator/tests/medium_10k.txt"
+            ]
+        },
+        */
         {
             "name": "file_comparator",
             "type": "python",
