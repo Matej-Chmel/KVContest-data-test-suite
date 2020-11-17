@@ -1,5 +1,3 @@
-> Warning: At the time of writing, pgcontest website appears to have an expired certificate. Follow the links to pgcontest on your own risk or wait for them to fix it.
-
 # What is this?
 
 You might stumble upon this repository if you were browsing solutions to previous competitions on [pgcontest from VSB](https://pgcontest.vsb.cz/contest/) or their GitLab.
